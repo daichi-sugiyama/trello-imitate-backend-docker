@@ -10,4 +10,4 @@
 * MySql
 
 ## 参考
-・https://tech.windii.jp/backend/laravel/laravel-with-docker-compose
+* https://tech.windii.jp/backend/laravel/laravel-with-docker-compose
