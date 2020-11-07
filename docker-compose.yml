@@ -1,0 +1,33 @@
+version: '3'
+services:
+  # nginx
+  web:
+    image: nginx:1.15.6
+    ports:
+      - "8000:80"
+    depends_on: #NginxがPHPを実行するため、NginxがPHPに依存していることを定義
+      - app
+    volumes:
+      - ./docker/web/default.conf:/etc/nginx/conf.d/default.conf
+      - .:/var/www/html
+  # php-fpm
+  app:
+    build: ./docker/php #定義したDockerfileを元にイメージを作るように変更
+    depends_on:
+      - mysql
+    volumes:
+      - .:/var/www/html
+  # mysql
+  mysql:
+    image: mysql:5.7
+    environment:
+      MYSQL_DATABASE: sample
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: password
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+volumes:
+  mysql-data:
